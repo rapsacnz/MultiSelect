@@ -1,0 +1,36 @@
+<template>
+
+	<div class="slds-form-element">
+		<label class={labelStyle} for="combobox-input-1">{label}</label>
+    <div class="slds-form-element__control">
+      <div class="slds-combobox_container">
+
+        <div  class={mainDivClass} aria-expanded="false" aria-haspopup="listbox" role="combobox">
+          <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+            <input type="text" class="slds-hide " id="combobox-input-1" autocomplete="off" role="textbox" >
+            <div onclick={handleClick} class="slds-input slds-combobox__input" style="padding-left: .175rem;"
+              id="combobox-div-1" aria-controls="listbox-id-1"  >{hintText}
+              <lightning-pill-container items={selectedPills} onitemremove={handlePillRemove} variant="bare"  ></lightning-pill-container>
+            </div>
+            <span class="slds-icon_container slds-icon-utility-down slds-input__icon slds-input__icon_right">
+              <lightning-icon icon-name="utility:down" size="x-small" alternative-text="Approved"></lightning-icon>
+            </span>
+          </div>
+          <div class={dropdownOuterStyle}  role="listbox">
+            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+              <template for:each={options_} for:item="option">
+                <c-lwc-multi-select-item key={option.value}
+                                     value={option.value}
+                                     label={option.label}
+                                     selected={option.selected}
+                                     onselected={handleSelectedClick}></c-lwc-multi-select-item>
+
+              </template>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>
