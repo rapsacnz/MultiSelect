@@ -104,9 +104,15 @@ export default class LwcMultiSelect extends LightningElement {
       }
     });
     this.selectedPills = this.getPillArray();
+    this.despatchChangeEvent();
 
   }
 
+  despatchChangeEvent() {
+    const eventDetail = {value:this.value(),selectedItems:this.selectedObjects()};
+    const changeEvent = new CustomEvent('change', { detail: eventDetail });
+    this.dispatchEvent(changeEvent);
+  }
 
   handleSelectedClick(event){
 
