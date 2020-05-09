@@ -30,5 +30,5 @@ In action:
 
 [![Multiselect gif][1]][1]
 
-[1]: https://media.giphy.com/media/ifMS0C6OgaOOsTm4Wg/giphy.gif
+[1]: https://media.giphy.com/media/l0Qlzg9JJcujQc0KrE/giphy.gif
 
