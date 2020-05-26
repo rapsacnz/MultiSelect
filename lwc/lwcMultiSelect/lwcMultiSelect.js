@@ -8,7 +8,13 @@ export default class LwcMultiSelect extends LightningElement {
   @api name = '';
   @api dropdownLength = 5;
 
-  @track options_ = [];
+  @track options = [{label:'Docksta table',value:'Docksta table',selected:false},
+                    {label:'Ektorp sofa',value:'Ektorp sofa',selected:false},
+                    {label:'Poäng armchair',value:'Poäng armchair',selected:false},
+                    {label:'Kallax shelving',value:'Kallax shelving',selected:false},
+                    {label:'Billy bookcase',value:'Billy bookcase',selected:false},
+                    {label:'Landskrona sofa',value:'Landskrona sofa',selected:false},
+                    {label:'Krippan loveseat',value:'Krippan loveseat',selected:false}];
   @track value_ = ''; //serialized value - ie 'CA;FL;IL' used when / if options have not been set yet
   @track isOpen = false;
   @api selectedPills = [];  //seperate from values, because for some reason pills use {label,name} while values uses {label:value}
