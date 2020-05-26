@@ -5,21 +5,70 @@ export default class LwcMultiSelect extends LightningElement {
   @api width = 100;
   @api variant = '';
   @api label = '';
+  @api name = '';
   @api dropdownLength = 5;
-  @api options = [{label:'Docksta table',value:'Docksta table',selected:false},
-                  {label:'Ektorp sofa',value:'Ektorp sofa',selected:false},
-                  {label:'Poäng armchair',value:'Poäng armchair',selected:false},
-                  {label:'Kallax shelving',value:'Kallax shelving',selected:false},
-                  {label:'Billy bookcase',value:'Billy bookcase',selected:false},
-                  {label:'Landskrona sofa',value:'Landskrona sofa',selected:false},
-                  {label:'Krippan loveseat',value:'Krippan loveseat',selected:false}];
+
   @track options_ = [];
+  @track value_ = ''; //serialized value - ie 'CA;FL;IL' used when / if options have not been set yet
   @track isOpen = false;
   @api selectedPills = [];  //seperate from values, because for some reason pills use {label,name} while values uses {label:value}
 
+  rendered = false;
+
   @api
+  get options(){
+    return this.options_
+  }
+  set options(options){
+    this.rendered = false;
+    this.parseOptions(options);
+    this.parseValue(this.value_);
+  }
+
+  @api
+  get value(){
+    let selectedValues =  this.selectedValues();
+    return selectedValues.length > 0 ? selectedValues.join(";") : "";
+  }
+  set value(value){
+    this.value_ = value;
+    this.parseValue(value);
+    
+  }
+
+  parseValue(value){
+    if (!value || !this.options_ || this.options_.length < 1){
+      return;
+    }
+    var values = value.split(";");
+    var valueSet = new Set(values);
+
+    this.options_ = this.options_.map(function(option) {
+      if (valueSet.has(option.value)){
+        option.selected = true;
+      }
+      return option;
+    });
+    this.selectedPills = this.getPillArray();
+  }
+
+  parseOptions(options){
+    if (options != undefined && Array.isArray(options)){
+      this.options_ = JSON.parse(JSON.stringify(options)).map( (option,i) => {
+        option.key = i;
+        return option;
+      });
+    }
+  }
+
+
+  //private called by getter of 'value'
   selectedValues(){
-    var values = []
+    var values = [];
+    //if no options set yet or invalid, just return value
+    if (this.options_.length < 1){
+      return this.value_;
+    }
     this.options_.forEach(function(option) {
       if (option.selected === true) {
         values.push(option.value);
@@ -27,26 +76,14 @@ export default class LwcMultiSelect extends LightningElement {
     });
     return values;
   }
-  @api
-  selectedObjects(){
-    var values = []
-    this.options_.forEach(function(option) {
-      if (option.selected === true) {
-        values.push(option);
-      }
-    });
-    return values;
-  }
-  @api
-  value(){
-    return this.selectedValues().join(';')
-  }
-
 
   connectedCallback() {
-    //copy public attributes to private ones
-    this.options_ = JSON.parse(JSON.stringify(this.options));
   }
+
+  renderedCallback(){
+  }
+
+
 
   get labelStyle() {
     return this.variant === 'label-hidden' ? ' slds-hide' : ' slds-form-element__label ' ;
@@ -108,12 +145,6 @@ export default class LwcMultiSelect extends LightningElement {
 
   }
 
-  despatchChangeEvent() {
-    const eventDetail = {value:this.value(),selectedItems:this.selectedObjects()};
-    const changeEvent = new CustomEvent('change', { detail: eventDetail });
-    this.dispatchEvent(changeEvent);
-  }
-
   handleSelectedClick(event){
 
     var value;
@@ -122,7 +153,6 @@ export default class LwcMultiSelect extends LightningElement {
     event.stopPropagation();
 
     const listData = event.detail;
-    //console.log(listData);
 
     value = listData.value;
     selected = listData.selected;
@@ -148,8 +178,19 @@ export default class LwcMultiSelect extends LightningElement {
     }
 
     this.selectedPills = this.getPillArray();
+    this.despatchChangeEvent();
 
   }
+
+
+  despatchChangeEvent() {
+    let values =  this.selectedValues();
+    let valueString = values.length > 0 ? values.join(";") : "";
+    const eventDetail = {value:valueString};
+    const changeEvent = new CustomEvent('change', { detail: eventDetail });
+    this.dispatchEvent(changeEvent);
+  }
+
 
   getPillArray(){
     var pills = [];
@@ -161,5 +202,6 @@ export default class LwcMultiSelect extends LightningElement {
     });
     return pills;
   }
+
 
 }

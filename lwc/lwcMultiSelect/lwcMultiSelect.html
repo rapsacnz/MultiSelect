@@ -19,7 +19,7 @@
           <div class={dropdownOuterStyle}  role="listbox">
             <ul class="slds-listbox slds-listbox_vertical" role="presentation">
               <template for:each={options_} for:item="option">
-                <c-lwc-multi-select-item key={option.value}
+                <c-lwc-multi-select-item key={option.key}
                                      value={option.value}
                                      label={option.label}
                                      selected={option.selected}
