@@ -1,0 +1,17 @@
+<template>
+  <!-- slds-pill_container -->
+  <!-- <div class=""> -->
+    <ul class="slds-listbox slds-listbox_horizontal" role="listbox" >
+      <template for:each={items_} for:item="pill">
+      <li class="slds-listbox-item" role="presentation" key={pill.internalKey}>
+        <span class="slds-pill" role="option" tabindex="0" >
+          <span class="slds-pill__label" title={pill.label}>{pill.label}</span>
+          <lightning-icon class="slds-icon_container slds-pill__remove" data-key={pill.internalKey}
+            title="Remove" icon-name="utility:close" onclick={deletePill}></lightning-icon>
+        </span>
+      </li>
+      </template>
+    </ul>
+  <!-- </div> -->
+    
+</template>

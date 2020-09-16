@@ -139,7 +139,6 @@ export default class LwcMultiSelect extends LightningElement {
     event.stopPropagation();
 
     const name = event.detail.item.name;
-    //const index = event.detail.index;
 
     this.options_.forEach(function(element) {
       if (element.value === name) {
