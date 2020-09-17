@@ -1,5 +1,8 @@
-# lwcMultiSelect
+# MultiSelect
 Same as my Aura MultiSelect, except uses pills to show selected items.
+
+# Update 2020-09-17
+Renamed to MultiSelect from lwcMultiSelect as lwc now default. Will update code to not use pills if so desired.
 
 # Update 2020-09-16
 Salesforce changed it's design system to make pills a block display, which means they don't work inside the multiselect, so I've added a custom pill component
