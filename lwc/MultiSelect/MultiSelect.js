@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 
-export default class LwcMultiSelect extends LightningElement {
+export default class MultiSelect extends LightningElement {
 
   @api width = 100;
   @api variant = '';

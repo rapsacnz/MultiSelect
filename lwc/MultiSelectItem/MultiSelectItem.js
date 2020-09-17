@@ -1,6 +1,6 @@
 import { LightningElement,api } from 'lwc';
 
-export default class LwcMultiSelectItem extends LightningElement {
+export default class MultiSelectItem extends LightningElement {
   @api key = '';
   @api value = '';
   @api label = '';
