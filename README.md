@@ -21,7 +21,7 @@ To use in aura, add this markup:
                   {label:'Landskrona sofa',value:'Landskrona sofa',selected:false},
                   {label:'Krippan loveseat',value:'Krippan loveseat',selected:false}]"/>
 
-    <c:lwcMultiSelect label="Furniture" options="{!v.options}" onchange="{!c.handleSelectionChange}"></c:lwcMultiSelect>
+    <c:MultiSelect label="Furniture" options="{!v.options}" onchange="{!c.handleSelectionChange}"></c:MultiSelect>
 
 Handle in the controller like this:
 
